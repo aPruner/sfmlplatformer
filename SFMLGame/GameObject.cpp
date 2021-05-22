@@ -9,9 +9,9 @@ sf::Vector2f GameObject::getOrigin() {
 }
 
 void GameObject::setSprite(sf::Sprite sprite) {
-
+	m_sprite = sprite;
 }
 
 void GameObject::setPosition(sf::Vector2f position) {
-
+	m_sprite.setPosition(position);
 }
