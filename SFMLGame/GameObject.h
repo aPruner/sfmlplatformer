@@ -11,7 +11,7 @@ protected:
 
 	sf::RectangleShape m_debugRect;
 
-	const float BASE_MOVEMENT_SPEED = 1.0;
+	const float BASE_MOVEMENT_SPEED = 500.0;
 	const double BASE_GRAVITY_ACCEL_VALUE = -9.8;
 
 public:

@@ -59,7 +59,8 @@ void Engine::input() {
 	}
 }
 
-void Engine::update(std::vector<GameObject*>* gameObjects) {
+void Engine::update() {
+	std::vector<GameObject*>* gameObjects = m_game->getGameObjects();
 	sf::Time dt = m_clock->restart();
 	float dtSeconds = dt.asSeconds();
 
@@ -71,7 +72,8 @@ void Engine::update(std::vector<GameObject*>* gameObjects) {
 	m_game->centerGameViewOnPlayer();
 }
 
-void Engine::draw(std::vector<GameObject*>* gameObjects) {
+void Engine::draw() {
+	std::vector<GameObject*>* gameObjects = m_game->getGameObjects();
 	m_window->clear();
 	m_window->setView(m_game->getGameView());
 
@@ -96,9 +98,8 @@ void Engine::run() {
 	// Run the game loop
 	while (m_window->isOpen())
 	{
-		std::vector<GameObject*>* gameObjects = m_game->getGameObjects();
 		input();
-		update(gameObjects);
-		draw(gameObjects);
+		update();
+		draw();
 	}
 }

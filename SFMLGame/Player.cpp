@@ -2,12 +2,12 @@
 
 Player::Player() :
 	m_health(10),
-	m_movementSpeed(1.0),
+	m_movementSpeed(BASE_MOVEMENT_SPEED),
 	m_moveLeftPressed(false),
 	m_moveRightPressed(false),
 	m_jumpPressed(false) {
-	setPosition(sf::Vector2f(500, 500));
 	initDebugRect(sf::Vector2f(32, 32));
+	setPosition(sf::Vector2f(500, 500));
 }
 
 Player::~Player() {

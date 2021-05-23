@@ -22,8 +22,8 @@ private:
 	// TODO: add these when necessary
 
 	void input();
-	void update(std::vector<GameObject*>* gameObjects);
-	void draw(std::vector<GameObject*>* gameObjects);
+	void update();
+	void draw();
 
 public:
 	Engine();

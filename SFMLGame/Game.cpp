@@ -5,7 +5,8 @@ Game::Game(Player* player, sf::Vector2f screenResolution) :
 	m_gameObjects(new std::vector<GameObject*>()),
 	m_gameView(sf::View(sf::FloatRect(0, 0, screenResolution.x, screenResolution.y))),
 	m_level(new Level()) {
-	addGameObject(player);
+	addGameObject(m_player);
+	centerGameViewOnPlayer();
 }
 
 Game::~Game() {
