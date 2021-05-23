@@ -11,4 +11,5 @@ private:
 public:
 	TextureMapper();
 
+	sf::Texture getTexture(std::string textureName);
 };
