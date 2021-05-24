@@ -15,7 +15,7 @@ protected:
 	Level* m_level;
 
 	const float BASE_MOVEMENT_SPEED = 500.0;
-	const float BASE_JUMP_SPEED = 500.0;
+	const float BASE_JUMP_SPEED = 800.0;
 	const double BASE_GRAVITY_ACCEL_VALUE = -300;
 
 public:
