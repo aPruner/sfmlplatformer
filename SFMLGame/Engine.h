@@ -13,7 +13,7 @@ private:
 
 	// Input helpers
 	void closeWindowInputHelper(sf::Event event);
-	void movePlayerInputHelper();
+	void movePlayerInputHelper(sf::Event event);
 
 	// Update helpers
 	// TODO: add these if necessary

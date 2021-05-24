@@ -4,14 +4,24 @@ Player::Player(Level* level) :
 	m_level(level),
 	m_health(10),
 	m_movementSpeed(BASE_MOVEMENT_SPEED),
+	m_jumpSpeed(BASE_JUMP_SPEED),
 	m_moveLeftPressed(false),
 	m_moveRightPressed(false),
-	m_jumpPressed(false) {
+	m_isJumping(false),
+	m_isAirborne(false) {
 	initDebugRect(sf::Vector2f(30, 30));
 	setPosition(sf::Vector2f(500, 500));
 }
 
 Player::~Player() {
+}
+
+void Player::triggerJump() {
+	if (!m_isJumping) {
+		m_jumpClock.restart();
+		setIsAirborne(true);
+		setIsJumping(true);
+	}
 }
 
 // Player update helpers
@@ -32,7 +42,22 @@ void Player::moveUpdateHelper(float timeElapsed) {
 		currentPosition = newPosition;
 	}
 
-	// TODO: Handle jump here
+	if (m_isJumping) {
+		newPosition.y -= timeElapsed * m_jumpSpeed;
+		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
+
+		/*
+		if (currentPosition == newPosition) {
+			setIsJumping(false);
+		}
+		*/
+
+		currentPosition = newPosition;
+		if (m_jumpClock.getElapsedTime().asSeconds() > JUMP_CLOCK_INTERVAL) {
+			setIsJumping(false);
+		}
+	}
+	
 
 	// Apply gravity using the GameObject gravity helper
 	newPosition = applyGravity(timeElapsed, newPosition, BASE_GRAVITY_ACCEL_VALUE);
@@ -77,6 +102,14 @@ int Player::getHealth() {
 	return m_health;
 }
 
+bool Player::getIsAirborne() {
+	return m_isAirborne;
+}
+
+bool Player::getIsJumping() {
+	return m_isJumping;
+}
+
 void Player::setHealth(int health) {
 	m_health = health;
 }
@@ -89,6 +122,10 @@ void Player::setMoveRightPressed(bool moveRightPressed) {
 	m_moveRightPressed = moveRightPressed;
 }
 
-void Player::setJumpPressed(bool jumpPressed) {
-	m_jumpPressed = jumpPressed;
+void Player::setIsAirborne(bool isAirborne) {
+	m_isAirborne = isAirborne;
+}
+
+void Player::setIsJumping(bool isJumping) {
+	m_isJumping = isJumping;
 }

@@ -21,15 +21,13 @@ void Engine::closeWindowInputHelper(sf::Event event) {
 		m_window->close();
 	}
 
-	if (event.type == sf::Event::KeyPressed) {
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		// For now, escape quits the game
-		if (event.key.code == sf::Keyboard::Escape) {
-			m_window->close();
-		}
+		m_window->close();
 	}
 }
 
-void Engine::movePlayerInputHelper() {
+void Engine::movePlayerInputHelper(sf::Event event) {
 	Player* player = m_game->getPlayer();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		player->setMoveLeftPressed(true);
@@ -45,11 +43,8 @@ void Engine::movePlayerInputHelper() {
 		player->setMoveRightPressed(false);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		player->setJumpPressed(true);
-	}
-	else {
-		player->setJumpPressed(false);
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+		player->triggerJump();
 	}
 }
 
@@ -57,7 +52,7 @@ void Engine::input() {
 	sf::Event event;
 	while (m_window->pollEvent(event)) {
 		closeWindowInputHelper(event);
-		movePlayerInputHelper();
+		movePlayerInputHelper(event);
 	}
 }
 

@@ -7,11 +7,17 @@ private:
 
 	int m_health;
 	float m_movementSpeed;
+	float m_jumpSpeed;
 
 	// Player movement input flags
 	bool m_moveLeftPressed;
 	bool m_moveRightPressed;
-	bool m_jumpPressed;
+
+	bool m_isAirborne;
+	bool m_isJumping;
+
+	sf::Clock m_jumpClock;
+	const float JUMP_CLOCK_INTERVAL = 1.0;
 
 	// TODO: add more player-related data fields here
 
@@ -32,6 +38,8 @@ public:
 	Player(Level* level);
 	~Player();
 
+	void triggerJump();
+
 	// Override for GameObject::update
 	void update(float timeElapsed) override;
 
@@ -40,10 +48,13 @@ public:
 
 	// Getters and Setters
 	int getHealth();
+	bool getIsAirborne();
+	bool getIsJumping();
 
 	void setHealth(int health);
 	void setMoveLeftPressed(bool moveLeftPressed);
 	void setMoveRightPressed(bool moveRightPressed);
-	void setJumpPressed(bool jumpPressed);
+	void setIsAirborne(bool isAirborne);
+	void setIsJumping(bool isJumping);
 
 };
