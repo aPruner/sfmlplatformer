@@ -1,10 +1,10 @@
 #include "Game.h"
 
-Game::Game(Player* player, sf::Vector2f screenResolution) :
+Game::Game(Player* player, sf::Vector2f screenResolution, Level* level) :
 	m_player(player),
 	m_gameObjects(new std::vector<GameObject*>()),
 	m_gameView(sf::View(sf::FloatRect(0, 0, screenResolution.x, screenResolution.y))),
-	m_level(new Level()) {
+	m_level(level) {
 	addGameObject(m_player);
 	centerGameViewOnPlayer();
 }
@@ -14,6 +14,7 @@ Game::~Game() {
 		delete (*it);
 	}
 	delete m_gameObjects;
+	delete m_level;
 }
 
 void Game::centerGameViewOnPlayer() {

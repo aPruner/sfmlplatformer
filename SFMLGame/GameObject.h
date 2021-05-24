@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Level.h"
 
 // Abstract class from which to derive GameObject classes
 // GameObject classes are anything that will be drawn to
@@ -11,15 +12,17 @@ protected:
 
 	sf::RectangleShape m_debugRect;
 
+	Level* m_level;
+
 	const float BASE_MOVEMENT_SPEED = 500.0;
-	const double BASE_GRAVITY_ACCEL_VALUE = -9.8;
+	const double BASE_GRAVITY_ACCEL_VALUE = -300;
 
 public:
 
 	void initDebugRect(sf::Vector2f size);
 
 	// Helper method for applying base gravity
-	void applyGravity(float timeElapsed, double gravityAccel);
+	sf::Vector2f applyGravity(float timeElapsed, sf::Vector2f newPosition, double gravityAccel);
 
 	// Pure virtual method for updating the game object
 	// Must be defined in the derived class

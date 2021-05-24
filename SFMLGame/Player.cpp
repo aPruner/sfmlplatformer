@@ -1,12 +1,13 @@
 #include "Player.h"
 
-Player::Player() :
+Player::Player(Level* level) :
+	m_level(level),
 	m_health(10),
 	m_movementSpeed(BASE_MOVEMENT_SPEED),
 	m_moveLeftPressed(false),
 	m_moveRightPressed(false),
 	m_jumpPressed(false) {
-	initDebugRect(sf::Vector2f(32, 32));
+	initDebugRect(sf::Vector2f(30, 30));
 	setPosition(sf::Vector2f(500, 500));
 }
 
@@ -17,21 +18,47 @@ Player::~Player() {
 void Player::moveUpdateHelper(float timeElapsed) {
 	// Copy the current position for mutation if the player will move
 	sf::Vector2f newPosition = getPosition();
+	sf::Vector2f currentPosition = getPosition();
+
 	// Move the player
 	if (m_moveLeftPressed) {
 		newPosition.x -= timeElapsed * m_movementSpeed;
+		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
+		currentPosition = newPosition;
 	}
 	if (m_moveRightPressed) {
 		newPosition.x += timeElapsed * m_movementSpeed;
+		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
+		currentPosition = newPosition;
 	}
 
 	// TODO: Handle jump here
 
 	// Apply gravity using the GameObject gravity helper
-	// applyGravity(timeElapsed, BASE_GRAVITY_ACCEL_VALUE);
+	newPosition = applyGravity(timeElapsed, newPosition, BASE_GRAVITY_ACCEL_VALUE);
+	newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
 
 	// Finalize the new position
 	setPosition(newPosition);
+}
+
+// This method checks for collisions after a single position change represented by the 
+// difference in both x and y of newPosition - currentPosition, and will undo the position
+// change if a collision was found
+// NOTE: This method ASSUMES that only one change in position has happened, so it needs
+// to be called after every change of position
+// params:
+//	currentPosition: position before the change
+//	newPosition: position after the change
+sf::Vector2f Player::checkCollisionHelper(float timeElapsed, sf::Vector2f currentPosition, sf::Vector2f newPosition) {
+	std::vector<sf::RectangleShape>* levelDebugEnvArray = m_level->getDebugEnvArray();
+	for (auto it = levelDebugEnvArray->begin(); it != levelDebugEnvArray->end(); it++) {
+		sf::FloatRect newPositionBoundingBox(newPosition, m_debugRect.getSize());
+		if (newPositionBoundingBox.intersects(it->getGlobalBounds())) {
+			return currentPosition;
+		}
+	}
+	return newPosition;
 }
 
 // Override for GameObject::update

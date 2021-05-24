@@ -3,6 +3,8 @@
 
 class Player : virtual public GameObject {
 private:
+	Level* m_level;
+
 	int m_health;
 	float m_movementSpeed;
 
@@ -16,8 +18,18 @@ private:
 	// Player update helpers
 	void moveUpdateHelper(float timeElapsed);
 
+	// This method checks for collisions after a single position change represented by the 
+	// difference in both x and y of newPosition - currentPosition, and will undo the position
+	// change if a collision was found
+	// NOTE: This method ASSUMES that only one change in position has happened, so it needs
+	// to be called after every change of position
+	// params:
+	//	currentPosition: position before the change
+	//	newPosition: position after the change
+	sf::Vector2f checkCollisionHelper(float timeElapsed, sf::Vector2f currentPosition, sf::Vector2f newPosition);
+
 public:
-	Player();
+	Player(Level* level);
 	~Player();
 
 	// Override for GameObject::update

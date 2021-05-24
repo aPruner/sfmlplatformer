@@ -14,7 +14,7 @@ private:
 	Level* m_level;
 
 public:
-	Game(Player* player, sf::Vector2f screenResolution);
+	Game(Player* player, sf::Vector2f screenResolution, Level* level);
 	~Game();
 
 	void centerGameViewOnPlayer();

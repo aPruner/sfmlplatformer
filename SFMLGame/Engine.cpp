@@ -10,7 +10,9 @@ Engine::Engine() {
 	m_screenResolution = sf::Vector2f((float)screenResolutionVM.width, (float)screenResolutionVM.height);
 	m_window = new sf::RenderWindow(screenResolutionVM, "NAME TBD", sf::Style::Fullscreen);
 
-	m_game = new Game(new Player(), m_screenResolution);
+	Level* level = new Level();
+	Player* player = new Player(level);
+	m_game = new Game(player, m_screenResolution, level);
 }
 
 // Input Helpers

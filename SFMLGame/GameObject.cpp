@@ -8,10 +8,9 @@ void GameObject::initDebugRect(sf::Vector2f size) {
 	m_debugRect.setOutlineThickness((float)1);
 }
 
-void GameObject::applyGravity(float timeElapsed, double gravityAccel) {
-	sf::Vector2f newPosition = getPosition();
+sf::Vector2f GameObject::applyGravity(float timeElapsed, sf::Vector2f newPosition, double gravityAccel) {
 	newPosition.y -= timeElapsed * gravityAccel;
-	setPosition(newPosition);
+	return newPosition;
 }
 
 // Getters and Setters
