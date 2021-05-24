@@ -17,7 +17,7 @@ Player::~Player() {
 }
 
 void Player::triggerJump() {
-	if (!m_isJumping) {
+	if (!m_isJumping && !m_isAirborne) {
 		m_jumpClock.restart();
 		setIsAirborne(true);
 		setIsJumping(true);
@@ -62,6 +62,11 @@ void Player::moveUpdateHelper(float timeElapsed) {
 	// Apply gravity using the GameObject gravity helper
 	newPosition = applyGravity(timeElapsed, newPosition, BASE_GRAVITY_ACCEL_VALUE);
 	newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
+
+	// In this case, we've just landed on a platform/the ground
+	if (currentPosition == newPosition && m_isAirborne) {
+		setIsAirborne(false);
+	}
 
 	// Finalize the new position
 	setPosition(newPosition);
