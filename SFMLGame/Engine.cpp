@@ -10,6 +10,8 @@ Engine::Engine() {
 	m_screenResolution = sf::Vector2f((float)screenResolutionVM.width, (float)screenResolutionVM.height);
 	m_window = new sf::RenderWindow(screenResolutionVM, "NAME TBD", sf::Style::Fullscreen);
 
+	m_fpsCounter = new FPSCounter(m_screenResolution);
+
 	Level* level = new Level();
 	Player* player = new Player(level);
 	m_game = new Game(player, m_screenResolution, level);
@@ -60,6 +62,8 @@ void Engine::update() {
 	std::vector<GameObject*>* gameObjects = m_game->getGameObjects();
 	sf::Time dt = m_clock->restart();
 	float dtSeconds = dt.asSeconds();
+	
+	m_fpsCounter->update(dtSeconds);
 
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
@@ -84,6 +88,9 @@ void Engine::draw() {
 		GameObject *gameObject = *it;
 		m_window->draw(*gameObject);
 	}
+
+	m_window->setView(m_game->getDebugView());
+	m_window->draw(*m_fpsCounter);
 
 	m_window->display();
 }

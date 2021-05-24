@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Game.h"
+#include "FPSCounter.h"
 
 class Engine {
 private:
@@ -8,6 +9,7 @@ private:
 	sf::RenderWindow* m_window;
 	sf::Clock* m_clock;
 	Game* m_game;
+	FPSCounter* m_fpsCounter;
 
 	sf::Vector2f m_screenResolution;
 

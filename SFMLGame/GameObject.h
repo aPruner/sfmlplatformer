@@ -12,7 +12,7 @@ protected:
 
 	sf::RectangleShape m_debugRect;
 
-	Level* m_level;
+	Level* m_level = nullptr;
 
 	const float BASE_MOVEMENT_SPEED = 500.0;
 	const float BASE_JUMP_SPEED = 800.0;

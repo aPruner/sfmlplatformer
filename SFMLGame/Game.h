@@ -10,6 +10,7 @@ private:
 	Player* m_player;
 
 	sf::View m_gameView;
+	sf::View m_debugView;
 
 	Level* m_level;
 
@@ -24,5 +25,6 @@ public:
 	std::vector<GameObject*>* getGameObjects();
 	Player* getPlayer();
 	sf::View getGameView();
+	sf::View getDebugView();
 	Level* getLevel();
 };
