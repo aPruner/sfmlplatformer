@@ -46,12 +46,6 @@ void Player::moveUpdateHelper(float timeElapsed) {
 		newPosition.y -= timeElapsed * m_jumpSpeed;
 		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
 
-		/*
-		if (currentPosition == newPosition) {
-			setIsJumping(false);
-		}
-		*/
-
 		currentPosition = newPosition;
 		if (m_jumpClock.getElapsedTime().asSeconds() > JUMP_CLOCK_INTERVAL) {
 			setIsJumping(false);
