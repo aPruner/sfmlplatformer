@@ -12,7 +12,8 @@ Engine::Engine() {
 
 	m_fpsCounter = new FPSCounter(m_screenResolution);
 
-	Level* level = new Level();
+	TextureMapper* textureMapper = new TextureMapper();
+	Level* level = new Level(textureMapper, textureMapper->SWAMP_LEVEL_NAME);
 	Player* player = new Player(level);
 	m_game = new Game(player, m_screenResolution, level);
 }
@@ -78,11 +79,7 @@ void Engine::draw() {
 	m_window->clear();
 	m_window->setView(m_game->getGameView());
 
-	// Draw all rects in the debugEnvArray, acting as a level prototype
-	std::vector<sf::RectangleShape>* debugEnvArray = m_game->getLevel()->getDebugEnvArray();
-	for (auto it = debugEnvArray->begin(); it != debugEnvArray->end(); it++) {
-		m_window->draw(*it);
-	}
+	m_window->draw(*m_game->getLevel());
 
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++) {
 		GameObject *gameObject = *it;

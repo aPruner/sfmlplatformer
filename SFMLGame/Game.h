@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Level.h"
+#include "TextureMapper.h"
 
 class Game {
 private:

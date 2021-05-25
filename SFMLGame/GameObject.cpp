@@ -9,7 +9,7 @@ void GameObject::initDebugRect(sf::Vector2f size) {
 }
 
 sf::Vector2f GameObject::applyGravity(float timeElapsed, sf::Vector2f newPosition, double gravityAccel) {
-	newPosition.y -= timeElapsed * gravityAccel;
+	newPosition.y -= timeElapsed * (float) gravityAccel;
 	return newPosition;
 }
 
