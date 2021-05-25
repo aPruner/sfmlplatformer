@@ -5,7 +5,7 @@ void GameObject::initDebugRect(sf::Vector2f size) {
 	m_debugRect.setOutlineColor(sf::Color::Red);
 	m_debugRect.setOrigin(getPosition());
 	m_debugRect.setFillColor(sf::Color::Transparent);
-	m_debugRect.setOutlineThickness((float)1);
+	m_debugRect.setOutlineThickness(1.0);
 }
 
 sf::Vector2f GameObject::applyGravity(float timeElapsed, sf::Vector2f newPosition, double gravityAccel) {

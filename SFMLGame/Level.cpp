@@ -16,16 +16,24 @@ Level::~Level() {
 void Level::initBackgroundSprite() {
 	m_backgroundSprite.setTexture(m_levelImage);
 	// By default, levelImages are tiled in 16x16, so they need to be scaled to 32x32
-	// m_backgroundSprite.setScale(sf::Vector2f(1, 1));
+	m_backgroundSprite.setScale(sf::Vector2f(2, 2));
 	m_backgroundSprite.setPosition(sf::Vector2f(0, 0));
 }
 
 void Level::fillDebugEnvArray() {
-	// For now, just create one rect for the ground
-	sf::RectangleShape ground(sf::Vector2f(1000, 100));
-	ground.setFillColor(sf::Color::Blue);
-	ground.setPosition(sf::Vector2f(0, 800));
-	m_debugEnvArray->push_back(ground);
+	sf::RectangleShape leftPlatform(sf::Vector2f(512, 384));
+	leftPlatform.setFillColor(sf::Color::Transparent);
+	leftPlatform.setOutlineColor(sf::Color::Blue);
+	leftPlatform.setOutlineThickness(1.0);
+	leftPlatform.setPosition(sf::Vector2f(128, 640));
+	m_debugEnvArray->push_back(leftPlatform);
+
+	sf::RectangleShape middlePlatform(sf::Vector2f(4 * 64, 4 * 64));
+	middlePlatform.setFillColor(sf::Color::Transparent);
+	middlePlatform.setOutlineColor(sf::Color::Blue);
+	middlePlatform.setOutlineThickness(1.0);
+	middlePlatform.setPosition(sf::Vector2f(11 * 64, 12 * 64));
+	m_debugEnvArray->push_back(middlePlatform);
 }
 
 void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {

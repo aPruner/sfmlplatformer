@@ -9,8 +9,8 @@ Player::Player(Level* level) :
 	m_moveRightPressed(false),
 	m_isJumping(false),
 	m_isAirborne(false) {
-	initDebugRect(sf::Vector2f(30, 30));
-	setPosition(sf::Vector2f(500, 500));
+	initDebugRect(sf::Vector2f(62, 62));
+	setPosition(sf::Vector2f(192, 512));
 }
 
 Player::~Player() {
