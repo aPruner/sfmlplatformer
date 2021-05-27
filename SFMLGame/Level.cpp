@@ -34,6 +34,13 @@ void Level::fillDebugEnvArray() {
 	middlePlatform.setOutlineThickness(1.0);
 	middlePlatform.setPosition(sf::Vector2f(11 * 64, 12 * 64));
 	m_debugEnvArray->push_back(middlePlatform);
+
+	sf::RectangleShape rightPlatform(sf::Vector2f(7 * 64, 1 * 64));
+	rightPlatform.setFillColor(sf::Color::Transparent);
+	rightPlatform.setOutlineColor(sf::Color::Blue);
+	rightPlatform.setOutlineThickness(1.0);
+	rightPlatform.setPosition(sf::Vector2f(15 * 64, 8 * 64));
+	m_debugEnvArray->push_back(rightPlatform);
 }
 
 void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {

@@ -17,7 +17,7 @@ private:
 	bool m_isJumping;
 
 	sf::Clock m_jumpClock;
-	const double JUMP_CLOCK_INTERVAL = 0.3;
+	const double JUMP_CLOCK_INTERVAL = 0.35;
 
 	// TODO: add more player-related data fields here
 
