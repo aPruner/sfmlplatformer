@@ -32,7 +32,11 @@ private:
 	// params:
 	//	currentPosition: position before the change
 	//	newPosition: position after the change
-	sf::Vector2f checkCollisionHelper(float timeElapsed, sf::Vector2f currentPosition, sf::Vector2f newPosition);
+	sf::Vector2f checkCollisionHelper(float timeElapsed,
+										sf::Vector2f
+										currentPosition,
+										sf::Vector2f newPosition,
+										std::vector<sf::RectangleShape>* objectsToCheck);
 
 public:
 	Player(Level* level);

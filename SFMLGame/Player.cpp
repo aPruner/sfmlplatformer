@@ -30,32 +30,36 @@ void Player::moveUpdateHelper(float timeElapsed) {
 	sf::Vector2f newPosition = getPosition();
 	sf::Vector2f currentPosition = getPosition();
 
-	// Move the player
+	// Move the player and check for collisions after each potential move
+	// We need to check for collisions after each move so we can reverse that move 
+	// before the next frame if it were to cause a collision. This is difficult
+	// if I simply check collisions once, as it would be difficult to figure out
+	// which move caused the collision. However, if this method needs optimization later,
+	// I'll revisit this
 	if (m_moveLeftPressed) {
 		newPosition.x -= timeElapsed * m_movementSpeed;
-		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
+		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition, m_level->getDebugEnvArray());
 		currentPosition = newPosition;
 	}
 	if (m_moveRightPressed) {
 		newPosition.x += timeElapsed * m_movementSpeed;
-		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
+		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition, m_level->getDebugEnvArray());
 		currentPosition = newPosition;
 	}
 
 	if (m_isJumping) {
 		newPosition.y -= timeElapsed * m_jumpSpeed;
-		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
+		newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition, m_level->getDebugEnvArray());
 
 		currentPosition = newPosition;
 		if (m_jumpClock.getElapsedTime().asSeconds() > JUMP_CLOCK_INTERVAL) {
 			setIsJumping(false);
 		}
 	}
-	
 
 	// Apply gravity using the GameObject gravity helper
 	newPosition = applyGravity(timeElapsed, newPosition, BASE_GRAVITY_ACCEL_VALUE);
-	newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition);
+	newPosition = checkCollisionHelper(timeElapsed, currentPosition, newPosition, m_level->getDebugEnvArray());
 
 	// In this case, we've just landed on a platform/the ground
 	if (currentPosition == newPosition && m_isAirborne) {
@@ -72,13 +76,17 @@ void Player::moveUpdateHelper(float timeElapsed) {
 // NOTE: This method ASSUMES that only one change in position has happened, so it needs
 // to be called after every change of position
 // params:
+//  timeElapsed: time interval for the change
 //	currentPosition: position before the change
 //	newPosition: position after the change
-sf::Vector2f Player::checkCollisionHelper(float timeElapsed, sf::Vector2f currentPosition, sf::Vector2f newPosition) {
-	std::vector<sf::RectangleShape>* levelDebugEnvArray = m_level->getDebugEnvArray();
-	for (auto it = levelDebugEnvArray->begin(); it != levelDebugEnvArray->end(); it++) {
+//  objectsToCheck: array of drawables to check collisions against
+sf::Vector2f Player::checkCollisionHelper(float timeElapsed,
+											sf::Vector2f currentPosition,
+											sf::Vector2f newPosition,
+											std::vector<sf::RectangleShape>* objectsToCheck) {
+	for (auto it = objectsToCheck->begin(); it != objectsToCheck->end(); it++) {
 		sf::FloatRect newPositionBoundingBox(newPosition, m_debugRect.getSize());
-		if (newPositionBoundingBox.intersects(it->getGlobalBounds())) {
+		if (newPositionBoundingBox.intersects((*it).getGlobalBounds())) {
 			return currentPosition;
 		}
 	}
