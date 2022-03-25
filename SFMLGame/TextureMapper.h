@@ -16,7 +16,9 @@ public:
 
 	sf::Texture getTexture(std::string textureName);
 
-	// Texture atlas filepath and name constants
+	std::tuple<int, int, int, int, int> getAnimTuple(std::string textureName);
+
+	// Texture atlas (aka sprite sheet) filepath and name constants
 
 	// Levelimage filepath and name constants
 	inline static const std::string SWAMP_LEVEL_FILEPATH = "Assets/LevelImages/swampLevel.png";

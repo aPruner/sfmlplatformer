@@ -22,3 +22,8 @@ void TextureMapper::fillTextureMap() {
 	swampLevelTexture.loadFromFile(SWAMP_LEVEL_FILEPATH);
 	m_textureMap->emplace(std::pair<std::string, sf::Texture>(SWAMP_LEVEL_NAME, swampLevelTexture));
 }
+
+std::tuple<int, int, int, int, int> TextureMapper::getAnimTuple(std::string textureName) {
+	// TODO: Implement this
+	return std::tuple<int, int, int, int, int>(0, 0, 0, 0, 0);
+}
